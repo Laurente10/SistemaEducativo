@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.institucion.edu.entity.Rol;
 import com.institucion.edu.entity.Usuario;
+import com.institucion.edu.entity.Alumno;
 import com.institucion.edu.repository.RolRepository;
+import com.institucion.edu.service.AlumnoService;
 import com.institucion.edu.service.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -28,10 +30,12 @@ public class UsuarioController {
 
     @Autowired
     private RolRepository rolRepository;
+    
+    @Autowired
+    private AlumnoService alumnoService;
 
     @GetMapping
-    public String listarUsuarios(Model model,
-                                 HttpSession session) {
+    public String listarUsuarios(Model model, HttpSession session) {
 
         Usuario u =
             (Usuario) session.getAttribute("usuarioSession");
@@ -53,6 +57,8 @@ public class UsuarioController {
         model.addAttribute(
                 "roles",
                 rolRepository.findAll());
+        
+        model.addAttribute("alumnos", alumnoService.listarSinUsuario());
 
         return "usuarios";
     }
@@ -63,6 +69,7 @@ public class UsuarioController {
             @RequestParam String password,
             @RequestParam String email,
             @RequestParam Integer idRol,
+            @RequestParam(required = false) Integer idAlumno,
             HttpSession session) {
 
         Usuario u =
@@ -85,8 +92,7 @@ public class UsuarioController {
         nuevo.setEmail(email);
         nuevo.setEstado(1);
 
-        Rol rol = rolRepository.findById(idRol)
-                .orElse(null);
+        Rol rol = rolRepository.findById(idRol).orElse(null);
 
         Set<Rol> roles = new HashSet<>();
 
@@ -95,8 +101,26 @@ public class UsuarioController {
         }
 
         nuevo.setRoles(roles);
+        
+        if (rol != null && "ALUMNO".equalsIgnoreCase(rol.getNombre())) {
 
-        usuarioService.guardar(nuevo);
+            if (idAlumno == null) {
+                return "redirect:/usuarios";
+            }
+
+        }
+
+        Usuario usuarioGuardado = usuarioService.guardar(nuevo);
+
+        if (idAlumno != null) {
+
+            Alumno alumno = alumnoService.buscarPorId(idAlumno);
+
+            if (alumno != null) {
+                alumno.setUsuario(usuarioGuardado);
+                alumnoService.guardar(alumno);
+            }
+        }
 
         return "redirect:/usuarios";
     }

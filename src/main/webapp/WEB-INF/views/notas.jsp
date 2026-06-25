@@ -106,7 +106,9 @@ boolean puedeGestionarNotas =
                                 <th class="text-center">Final</th>
                                 <th class="text-center">Labs</th>
                                 <th class="text-center">Nota Final</th>
-                                <th class="text-center">Acción</th>
+                                 <% if(puedeGestionarNotas) { %>
+    							<th>Acción</th>
+								<% } %>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,30 +126,33 @@ boolean puedeGestionarNotas =
                                             ${n.notaFinal}
                                         </span>
                                     </td>
-                                    <td class="text-center">
+                                   <% if(puedeGestionarNotas) { %>
 
-    <% if(puedeGestionarNotas) { %>
+<td class="text-center">
 
-        <button class="btn btn-danger btn-sm"
-		onclick="confirmarEliminar(
-		'${pageContext.request.contextPath}/notas/eliminar/${n.idNota}',
-		'Nota #' + '${n.idNota}'
-		)">
-		Eliminar
-		</button>
+    <button class="btn btn-danger btn-sm"
+        onclick="confirmarEliminar(
+        '${pageContext.request.contextPath}/notas/eliminar/${n.idNota}',
+        'Nota #${n.idNota}'
+        )">
 
-    <% } else { %>
+        Eliminar
 
-        <span class="text-muted">Sin permiso</span>
-
-    <% } %>
+    </button>
 
 </td>
+
+<% } %>
                                 </tr>
                             </c:forEach>
                             <c:if test="${empty listaNotas}">
                                 <tr>
-                                    <td colspan="9" class="text-center text-muted py-3">No hay calificaciones registradas en este periodo académico.</td>
+                                    <td colspan="<%= puedeGestionarNotas ? 9 : 8 %>"
+  									  class="text-center text-muted py-3">
+
+    									No hay calificaciones registradas en este periodo académico.
+
+										</td>
                                 </tr>
                             </c:if>
                         </tbody>

@@ -50,13 +50,31 @@ public class NotaController {
             return "redirect:/dashboard";
         }
 
-        // Enviamos los catálogos para llenar los selectores dinámicos (ComboBoxes)
-        model.addAttribute("listaAlumnos", alumnoService.listarTodos());
-        model.addAttribute("listaCursos", cursoService.listarTodos());
-        model.addAttribute("listaDocentes", docenteService.listarTodos());
+        
+        if (!u.tieneRol("ALUMNO")) {
+
+            model.addAttribute("listaAlumnos", alumnoService.listarTodos());
+            model.addAttribute("listaCursos", cursoService.listarTodos());
+            model.addAttribute("listaDocentes", docenteService.listarTodos());
+
+        }
         
         // Enviamos el historial de calificaciones registradas
-        model.addAttribute("listaNotas", notaService.listarTodas());
+        if (u.tieneRol("ALUMNO")) {
+
+            model.addAttribute(
+                "listaNotas",
+                notaService.listarPorUsuario(u.getIdUsuario())
+            );
+
+        } else {
+
+            model.addAttribute(
+                "listaNotas",
+                notaService.listarTodas()
+            );
+
+        }
         
         // Enviamos un objeto vacío como plantilla para el formulario de registro
         model.addAttribute("nota", new Nota());

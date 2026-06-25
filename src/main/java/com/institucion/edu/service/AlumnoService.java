@@ -27,4 +27,8 @@ public class AlumnoService {
     public void eliminar(int id) {
         alumnoRepository.deleteById(id);
     }
+    
+    public List<Alumno> listarSinUsuario() {
+        return alumnoRepository.findByUsuarioIsNull();
+    }
 }

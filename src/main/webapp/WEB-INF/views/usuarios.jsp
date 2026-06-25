@@ -117,6 +117,29 @@ body{
                     </c:forEach>
 
                 </select>
+                <div class="mb-3" id="divAlumno" style="display:none;">
+
+    <label class="form-label">
+        Alumno asociado
+    </label>
+
+    <select name="idAlumno" class="form-select">
+
+        <option value="">
+            -- Seleccione un alumno --
+        </option>
+
+        <c:forEach items="${alumnos}" var="a">
+
+            <option value="${a.idAlumno}">
+                ${a.nombre} ${a.apellido}
+            </option>
+
+        </c:forEach>
+
+    </select>
+
+</div>
 
             </div>
 
@@ -267,5 +290,32 @@ function confirmarEliminacion(id, usuario){
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const rol = document.querySelector("select[name='idRol']");
+    const divAlumno = document.getElementById("divAlumno");
+
+    function validarRol(){
+
+        const texto =
+            rol.options[rol.selectedIndex].text.trim().toUpperCase();
+
+        if(texto === "ALUMNO"){
+            divAlumno.style.display = "block";
+        }else{
+            divAlumno.style.display = "none";
+        }
+
+    }
+
+    rol.addEventListener("change", validarRol);
+
+    validarRol();
+
+});
+
+</script>
 </body>
 </html>

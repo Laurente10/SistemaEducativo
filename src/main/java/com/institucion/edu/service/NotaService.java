@@ -35,4 +35,8 @@ public class NotaService {
     public void eliminar(int id) {
         notaRepository.deleteById(id);
     }
+    
+    public List<Nota> listarPorUsuario(int idUsuario){
+        return notaRepository.findByAlumnoUsuarioIdUsuario(idUsuario);
+    }
 }
