@@ -15,11 +15,9 @@ public class MatriculaService {
     public List<Matricula> listarTodas() {
         return matriculaRepository.findAll();
     }
-
     public Matricula guardar(Matricula matricula) {
         return matriculaRepository.save(matricula);
     }
-
     public void eliminar(int id) {
         matriculaRepository.deleteById(id);
     }

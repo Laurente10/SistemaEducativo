@@ -12,22 +12,15 @@ public class DocenteService {
     @Autowired
     private DocenteRepository docenteRepository;
 
-    // Obtener la lista completa de profesores registrados
     public List<Docente> listarTodos() {
         return docenteRepository.findAll();
-    }
-
-    // Registrar un nuevo docente o actualizar uno existente
+    } 
     public Docente guardar(Docente docente) {
         return docenteRepository.save(docente);
-    }
-
-    // Buscar un docente específico mediante su ID
+    }  
     public Docente buscarPorId(int id) {
         return docenteRepository.findById(id).orElse(null);
-    }
-
-    // Eliminar un registro de la base de datos
+    } 
     public void eliminar(int id) {
         docenteRepository.deleteById(id);
     }

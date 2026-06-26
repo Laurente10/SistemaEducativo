@@ -15,15 +15,12 @@ public class CursoService {
     public List<Curso> listarTodos() {
         return cursoRepository.findAll();
     }
-
     public Curso guardar(Curso curso) {
         return cursoRepository.save(curso);
     }
-
     public Curso buscarPorId(int id) {
         return cursoRepository.findById(id).orElse(null);
     }
-
     public void eliminar(int id) {
         cursoRepository.deleteById(id);
     }

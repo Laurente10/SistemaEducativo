@@ -7,7 +7,6 @@ import com.institucion.edu.entity.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    
-    // Método personalizado para buscar un usuario por su 'username' en el Login
+       
     Optional<Usuario> findByUsername(String username);
 }

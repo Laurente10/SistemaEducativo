@@ -1,5 +1,4 @@
 package com.institucion.edu.entity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,15 +33,13 @@ public class Alumno {
     @Column(name = "telefono", length = 15)
     private String telefono;
 
-    // Relación Uno a Uno con Usuario (Cada alumno puede tener una cuenta de acceso opcional)
     @OneToOne
     @JoinColumn(name = "id_usuario", nullable = true)
     private Usuario usuario;
 
-    // --- CONSTRUCTORES ---
     public Alumno() {
     }
-
+ 
     public Alumno(int idAlumno, String nombre, String apellido, String dni, LocalDate fechaNacimiento, String telefono, Usuario usuario) {
         this.idAlumno = idAlumno;
         this.nombre = nombre;
@@ -53,7 +50,6 @@ public class Alumno {
         this.usuario = usuario;
     }
 
-    // --- GETTERS Y SETTERS ---
     public int getIdAlumno() { return idAlumno; }
     public void setIdAlumno(int idAlumno) { this.idAlumno = idAlumno; }
 

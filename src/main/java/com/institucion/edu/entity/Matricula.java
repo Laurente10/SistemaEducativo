@@ -1,5 +1,4 @@
 package com.institucion.edu.entity;
-
 import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,11 +32,9 @@ public class Matricula {
     @Column(name = "estado", length = 20, nullable = false)
     private String estado;
 
-    // 👈 NUEVO CAMPO OBLIGATORIO DETECTADO EN TU BD
     @Column(name = "ciclo_academico", length = 20, nullable = false)
     private String cicloAcademico;
 
-    // --- CONSTRUCTORES ---
     public Matricula() {
     }
 
@@ -50,7 +47,6 @@ public class Matricula {
         this.cicloAcademico = cicloAcademico;
     }
 
-    // --- GETTERS Y SETTERS ---
     public int getIdMatricula() { return idMatricula; }
     public void setIdMatricula(int idMatricula) { this.idMatricula = idMatricula; }
 
@@ -66,7 +62,6 @@ public class Matricula {
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
 
-    // 👈 NUEVOS GETTER Y SETTER
     public String getCicloAcademico() { return cicloAcademico; }
     public void setCicloAcademico(String cicloAcademico) { this.cicloAcademico = cicloAcademico; }
 }

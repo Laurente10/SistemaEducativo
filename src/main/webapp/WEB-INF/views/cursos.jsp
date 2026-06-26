@@ -33,7 +33,7 @@ boolean esAdmin = usuario != null && usuario.tieneRol("ADMIN");
                 <div class="card shadow-sm p-4 border-0 mb-4">
                     <h4 class="text-primary mb-3">${curso.idCurso == 0 ? 'Registrar Curso' : 'Modificar Curso'}</h4>
                     
-                    <form action="${pageContext.request.contextPath}/cursos/guardar" method="POST">
+                    <form action="${pageContext.request.contextPath}/cursos/guardar" method="POST" onsubmit="return confirmarGuardar(this);">
                         <input type="hidden" name="idCurso" value="${curso.idCurso}">
 
                         <div class="mb-3">
@@ -103,44 +103,20 @@ boolean esAdmin = usuario != null && usuario.tieneRol("ADMIN");
     <% } %>
 
 </td>
-                                </tr>
-                            </c:forEach>
-                            <c:if test="${empty listaCursos}">
-                                <tr>
-                                    <td colspan="5" class="text-center text-muted py-3">No hay cursos registrados en el sistema.</td>
-                                </tr>
-                            </c:if>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+</tr>
+</c:forEach>
+         <c:if test="${empty listaCursos}">
+         <tr>
+         <td colspan="5" class="text-center text-muted py-3">No hay cursos registrados en el sistema.</td>
+</tr>
+</c:if>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-
-function confirmarEliminar(url,nombre){
-
-    Swal.fire({
-        title: '¿ESTÁS SEGURO DE ELIMINAR ESTE REGISTRO?',
-        html: '<b>'+nombre+'</b><br>No podrás revertir esta acción',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#0d6efd',
-        cancelButtonColor: '#dc3545',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-    }).then((result)=>{
-
-        if(result.isConfirmed){
-            window.location.href = url;
-        }
-
-    });
-
-}
-
-</script>
+<script src="${pageContext.request.contextPath}/resource/js/Cursos.js"></script>
 </body>
 </html>

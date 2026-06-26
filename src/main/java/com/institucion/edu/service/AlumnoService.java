@@ -15,19 +15,15 @@ public class AlumnoService {
     public List<Alumno> listarTodos() {
         return alumnoRepository.findAll();
     }
-
     public Alumno guardar(Alumno alumno) {
         return alumnoRepository.save(alumno);
     }
-
     public Alumno buscarPorId(int id) {
         return alumnoRepository.findById(id).orElse(null);
     }
-
     public void eliminar(int id) {
         alumnoRepository.deleteById(id);
     }
-    
     public List<Alumno> listarSinUsuario() {
         return alumnoRepository.findByUsuarioIsNull();
     }

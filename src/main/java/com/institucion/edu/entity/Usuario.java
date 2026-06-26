@@ -1,5 +1,4 @@
 package com.institucion.edu.entity;
-
 import java.util.HashSet;
 import java.util.Set;
 import jakarta.persistence.Entity;
@@ -14,7 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.FetchType;
 
 @Entity
-@Table(name = "usuarios") // Conecta con tu tabla 'usuarios'
+@Table(name = "usuarios") 
 public class Usuario {
 
     @Id
@@ -34,7 +33,6 @@ public class Usuario {
     @Column(name = "activo", nullable = false)
     private int estado; // 1 = Activo, 0 = Inactivo
 
-    // Relación Muchos a Muchos con Roles usando la tabla intermedia 'usuario_roles'
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "usuario_roles",
@@ -43,7 +41,6 @@ public class Usuario {
     )
     private Set<Rol> roles = new HashSet<>();
 
-    // --- CONSTRUCTORES ---
     public Usuario() {
     }
 
@@ -54,54 +51,42 @@ public class Usuario {
         this.estado = estado;
     }
     public boolean tieneRol(String nombreRol) {
-        return roles.stream()
-                .anyMatch(r -> r.getNombre().equalsIgnoreCase(nombreRol));
+        return roles.stream().anyMatch(r -> r.getNombre().equalsIgnoreCase(nombreRol));
     }
 
-    // --- GETTERS Y SETTERS ---
     public int getIdUsuario() {
         return idUsuario;
     }
-
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public int getEstado() {
         return estado;
     }
-
     public void setEstado(int estado) {
         this.estado = estado;
     }
-
     public Set<Rol> getRoles() {
         return roles;
     }
-
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
     }
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }

@@ -1,5 +1,4 @@
 package com.institucion.edu.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import com.institucion.edu.service.NotaService;
 import com.institucion.edu.service.AlumnoService;
 import com.institucion.edu.service.CursoService;
 import com.institucion.edu.service.DocenteService;
-
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -23,17 +21,13 @@ public class NotaController {
 
     @Autowired
     private NotaService notaService;
-
     @Autowired
     private AlumnoService alumnoService;
-
     @Autowired
     private CursoService cursoService;
-
     @Autowired
     private DocenteService docenteService;
 
-    // 1. Cargar la pantalla principal de gestión de notas
     @GetMapping
     public String listarNotas(Model model, HttpSession session) {
 
@@ -42,87 +36,56 @@ public class NotaController {
         if (u == null) {
             return "redirect:/login";
         }
-
-        if (!(u.tieneRol("ADMIN")
-                || u.tieneRol("DOCENTE")
-        	 	|| u.tieneRol("ALUMNO"))){
+        if (!(u.tieneRol("ADMIN") || u.tieneRol("DOCENTE")|| u.tieneRol("ALUMNO"))){
 
             return "redirect:/dashboard";
-        }
-
-        
+        }        
         if (!u.tieneRol("ALUMNO")) {
 
             model.addAttribute("listaAlumnos", alumnoService.listarTodos());
             model.addAttribute("listaCursos", cursoService.listarTodos());
             model.addAttribute("listaDocentes", docenteService.listarTodos());
-
-        }
-        
-        // Enviamos el historial de calificaciones registradas
+        }               
         if (u.tieneRol("ALUMNO")) {
 
-            model.addAttribute(
-                "listaNotas",
-                notaService.listarPorUsuario(u.getIdUsuario())
-            );
+            model.addAttribute("listaNotas",notaService.listarPorUsuario(u.getIdUsuario()));
 
         } else {
-
-            model.addAttribute(
-                "listaNotas",
-                notaService.listarTodas()
-            );
-
-        }
-        
-        // Enviamos un objeto vacío como plantilla para el formulario de registro
+            model.addAttribute("listaNotas",notaService.listarTodas());
+        }                
         model.addAttribute("nota", new Nota());
 
-        return "notas"; // Apunta a views/notas.jsp
-    }
-
-    // 2. Procesar el formulario de guardado
+        return "notas"; 
+    }   
     @PostMapping("/guardar")
-    public String guardarNota(
-            @ModelAttribute("nota") Nota nota,
-            HttpSession session) {
+    public String guardarNota(@ModelAttribute("nota") Nota nota,HttpSession session) {
 
         Usuario u = (Usuario) session.getAttribute("usuarioSession");
 
         if (u == null) {
             return "redirect:/login";
         }
-
-        if (!(u.tieneRol("ADMIN")
-                || u.tieneRol("DOCENTE"))) {
+        if (!(u.tieneRol("ADMIN")|| u.tieneRol("DOCENTE"))) {
 
             return "redirect:/dashboard";
         }
-        try {
-            // El servicio invocará automáticamente la fórmula matemática del promedio antes de persistir
+        try {           
             notaService.guardar(nota);
         } catch (Exception e) {
             System.out.println("❌ ERROR AL GUARDAR CALIFICACIÓN: " + e.getMessage());
             e.printStackTrace();
         }
         return "redirect:/notas";
-    }
-
-    // 3. Eliminar una calificación por su ID
+    }   
     @GetMapping("/eliminar/{id}")
-    public String eliminarNota(@PathVariable("id") int id,
-                               HttpSession session) {
+    public String eliminarNota(@PathVariable("id") int id,HttpSession session) {
 
         Usuario u = (Usuario) session.getAttribute("usuarioSession");
 
         if (u == null) {
             return "redirect:/login";
         }
-
-        if (!(u.tieneRol("ADMIN")
-                || u.tieneRol("DOCENTE"))) {
-
+        if (!(u.tieneRol("ADMIN")|| u.tieneRol("DOCENTE"))) {
             return "redirect:/dashboard";
         }
         try {

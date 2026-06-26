@@ -14,301 +14,238 @@ if (u == null) {
     <meta charset="UTF-8">
     <title>Sistema Educativo - Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-body{
-    background:#f4f7fc;
-    font-family:'Segoe UI',sans-serif;
-}
-
-.topbar{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
-    color:white;
-    padding:15px 30px;
-    border-radius:15px;
-    margin-bottom:25px;
-}
-
-.dashboard-card{
-    border:none;
-    border-radius:20px;
-    transition:.3s;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-    height:100%;
-}
-
-.dashboard-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 12px 25px rgba(0,0,0,.15);
-}
-
-.icon{
-    font-size:55px;
-}
-
-.welcome-box{
-    background:white;
-    border-radius:20px;
-    padding:30px;
-    margin-bottom:25px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-}
-
-.logout-btn{
-    border-radius:12px;
-}
-</style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/dashboard.css">
 </head>
 <body>
-
 <div class="container mt-4">
-
-    <!-- Barra Superior -->
-    <div class="topbar d-flex justify-content-between align-items-center">
-
-        <div>
+<div class="topbar d-flex justify-content-between align-items-center">
+            <div>
             <h3 class="mb-0">🎓 Sistema Educativo</h3>
-        </div>
-
-        <div>
-            Bienvenido: <strong><%= u.getUsername() %></strong>
-
+</div>
+            <div>
+                Bienvenido: <strong><%= u.getUsername() %></strong>
             <a href="${pageContext.request.contextPath}/logout"
-               class="btn btn-danger btn-sm ms-3 logout-btn">
+                class="btn btn-danger btn-sm ms-3 logout-btn">
                 Cerrar Sesión
             </a>
-        </div>
+</div>
+</div>
 
-    </div>
+<div class="card border-0 shadow-sm mb-4">
+<div class="card-body p-4">
+<div class="d-flex justify-content-between align-items-start">
+            <div>
+           <h2 class="fw-bold text-success mb-2">
+           👋 ¡Bienvenido, <%= u.getUsername() %>!
+</h2>
+           <h5 class="text-dark mb-3">
+               Sistema Educativo
+</h5>
+           <p class="text-muted mb-4">
+               Administra alumnos, docentes, cursos, matrículas y notas desde un único panel de control.
+           </p>
+          <div class="d-flex flex-wrap gap-4">
+          <div>
+          📅 <strong id="fechaActual"></strong>
+</div>
+          <div>
+          🕒 <strong id="horaActual"></strong>
+</div>
+</div>
+</div>
+           <div class="text-end">
+           <span class="badge bg-success fs-6">
+           			Usuario: <%= u.getUsername() %>
+</span>
+</div>
+</div>
+</div>
+</div>
 
-    <!-- Bienvenida -->
-    <div class="welcome-box">
-
-        <h1 class="fw-bold text-success">
-            ¡Bienvenido al Sistema Educativo!
-        </h1>
-
-        <p class="fs-5 text-muted">
-            Gestiona alumnos, docentes, cursos, matrículas y notas
-            desde un único panel de control.
-        </p>
-
-    </div>
-
-    <div class="row g-4">
+<div class="row g-4">
 
         <% if (u.tieneRol("ADMIN")) { %>
 
-        <div class="col-md-4">
-            <div class="card dashboard-card p-4 text-center">
-                <div class="icon">📚</div>
-                <h4>Cursos</h4>
-                <a href="${pageContext.request.contextPath}/cursos"
-                   class="btn btn-primary mt-3">
-                   Gestionar
-                </a>
-            </div>
-        </div>
+<div class="col-md-4">
+              <div class="card dashboard-card p-4 text-center">
+              <div class="icon">📚</div>
+              <h4>Cursos</h4>
+              <a href="${pageContext.request.contextPath}/cursos"
+                  class="btn btn-primary mt-3">
+                  Gestionar
+              </a>
+</div>
+</div>
 
-        <div class="col-md-4">
-            <div class="card dashboard-card p-4 text-center">
-                <div class="icon">👨‍🎓</div>
-                <h4>Alumnos</h4>
-                <a href="${pageContext.request.contextPath}/alumnos"
-                   class="btn btn-info text-white mt-3">
-                   Gestionar
-                </a>
-            </div>
-        </div>
+<div class="col-md-4">
+              <div class="card dashboard-card p-4 text-center">
+              <div class="icon">👨‍🎓</div>
+              <h4>Alumnos</h4>
+              <a href="${pageContext.request.contextPath}/alumnos"
+                  class="btn btn-info text-white mt-3">
+                  Gestionar
+              </a>
+</div>
+</div>
 
-        <div class="col-md-4">
-            <div class="card dashboard-card p-4 text-center">
-                <div class="icon">👨‍🏫</div>
-                <h4>Docentes</h4>
-                <a href="${pageContext.request.contextPath}/docentes"
-                   class="btn btn-success mt-3">
-                   Gestionar
-                </a>
-            </div>
-        </div>
+<div class="col-md-4">
+             <div class="card dashboard-card p-4 text-center">
+             <div class="icon">👨‍🏫</div>
+             <h4>Docentes</h4>
+             <a href="${pageContext.request.contextPath}/docentes"
+                 class="btn btn-success mt-3">
+                 Gestionar
+             </a>
+</div>
+</div>
 
-        <div class="col-md-4">
-            <div class="card dashboard-card p-4 text-center">
-                <div class="icon">📝</div>
-                <h4>Matrículas</h4>
-                <a href="${pageContext.request.contextPath}/matriculas"
-                   class="btn btn-warning text-white mt-3">
-                   Ingresar
-                </a>
-            </div>
-        </div>
+<div class="col-md-4">
+             <div class="card dashboard-card p-4 text-center">
+             <div class="icon">📝</div>
+             <h4>Matrículas</h4>
+             <a href="${pageContext.request.contextPath}/matriculas"
+                 class="btn btn-warning text-white mt-3">
+                 Ingresar
+             </a>
+</div>
+</div>
 
-        <div class="col-md-4">
+<div class="col-md-4">
             <div class="card dashboard-card p-4 text-center">
-                <div class="icon">📊</div>
-                <h4>Notas</h4>
-                <a href="${pageContext.request.contextPath}/notas"
-                   class="btn btn-secondary mt-3">
-                   Ingresar
-                </a>
-            </div>
-        </div>
+            <div class="icon">📊</div>
+            <h4>Notas</h4>
+            <a href="${pageContext.request.contextPath}/notas"
+                 class="btn btn-secondary mt-3">
+                 Ingresar
+             </a>
+</div>
+</div>
         
-        <div class="col-md-4">
+<div class="col-md-4">
    			 <div class="card dashboard-card p-4 text-center">
-
        		 <div class="icon">👥</div>
-
        		 <h4>Usuarios</h4>
-
-        		<a href="${pageContext.request.contextPath}/usuarios"
+        	 <a href="${pageContext.request.contextPath}/usuarios"
           		 class="btn btn-dark mt-3">
-
-           			 Gestionar
-
+           	     Gestionar
        		 </a>
 
-   		 </div>
-		</div>
+</div>
+</div>
 		
-		<div class="col-md-4">
-    <div class="card dashboard-card p-4 text-center">
-
+<div class="col-md-4">
+        <div class="card dashboard-card p-4 text-center">
         <div class="icon">📊</div>
-
         <h4>Dashboard Ejecutivo</h4>
-
         <a href="${pageContext.request.contextPath}/dashboard-admin"
-           class="btn btn-dark mt-3">
-
+            class="btn btn-dark mt-3">
             Ver Estadísticas
-
         </a>
 
-    </div>
+</div>
 </div>
 
         <% } %>
 
         <% if (u.tieneRol("DOCENTE")) { %>
 
-        <div class="col-md-6">
-            <div class="card dashboard-card p-4 text-center">
-                <div class="icon">📊</div>
-                <h4>Registro de Notas</h4>
-                <a href="${pageContext.request.contextPath}/notas"
-                   class="btn btn-secondary mt-3">
-                   Ingresar
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card dashboard-card p-4 text-center">
-                <div class="icon">📚</div>
-                <h4>Cursos Asignados</h4>
-                <a href="${pageContext.request.contextPath}/cursos"
-                   class="btn btn-primary mt-3">
-                   Consultar
-                </a>
-            </div>
-        </div>
-
-        <% } %> 
-
-       <% if (u.tieneRol("MATRICULA")) { %>
-
-<!-- Alumnos -->
-<div class="col-md-4">
-    <div class="card dashboard-card p-4 text-center">
-        <div class="icon">👨‍🎓</div>
-        <h4>Alumnos</h4>
-
-        <a href="${pageContext.request.contextPath}/alumnos"
-           class="btn btn-info text-white mt-3">
-           Consultar
+<div class="col-md-6">
+        <div class="card dashboard-card p-4 text-center">
+        <div class="icon">📊</div>
+        <h4>Registro de Notas</h4>
+        <a href="${pageContext.request.contextPath}/notas"
+            class="btn btn-secondary mt-3">
+        	Ingresar
         </a>
-    </div>
+</div>
 </div>
 
-<!-- Cursos -->
-<div class="col-md-4">
-    <div class="card dashboard-card p-4 text-center">
+<div class="col-md-6">
+        <div class="card dashboard-card p-4 text-center">
         <div class="icon">📚</div>
-        <h4>Cursos</h4>
-
+        <h4>Cursos Asignados</h4>
         <a href="${pageContext.request.contextPath}/cursos"
            class="btn btn-primary mt-3">
            Consultar
         </a>
-    </div>
+</div>
+</div>
+<% } %> 
+
+       <% if (u.tieneRol("MATRICULA")) { %>
+
+<div class="col-md-4">
+        <div class="card dashboard-card p-4 text-center">
+        <div class="icon">👨‍🎓</div>
+        <h4>Alumnos</h4>
+        <a href="${pageContext.request.contextPath}/alumnos"
+           class="btn btn-info text-white mt-3">
+           Consultar
+        </a>
+</div>
 </div>
 
-<!-- Matrículas -->
 <div class="col-md-4">
-    <div class="card dashboard-card p-4 text-center">
+        <div class="card dashboard-card p-4 text-center">
+        <div class="icon">📚</div>
+        <h4>Cursos</h4>
+        <a href="${pageContext.request.contextPath}/cursos"
+           class="btn btn-primary mt-3">
+           Consultar
+        </a>
+</div>
+</div>
+
+<div class="col-md-4">
+        <div class="card dashboard-card p-4 text-center">
         <div class="icon">📝</div>
         <h4>Matrículas</h4>
-
         <a href="${pageContext.request.contextPath}/matriculas"
            class="btn btn-warning text-white mt-3">
            Ingresar
         </a>
-    </div>
 </div>
-
+</div>
 <% } %>
-
-
 
       <% if (u.tieneRol("SOPORTE")) { %>
 
 <div class="col-md-12">
-    <div class="card dashboard-card p-4 text-center">
-
+   		<div class="card dashboard-card p-4 text-center">
         <div class="icon">🔐</div>
-
         <h4>Gestión de Usuarios</h4>
-
         <p>
             Registrar usuarios y asignar roles del sistema.
         </p>
-
         <a href="${pageContext.request.contextPath}/usuarios"
            class="btn btn-primary mt-3">
             Administrar Usuarios
         </a>
 
-    </div>
 </div>
-
+</div>
 <% } %>
         
         <% if (u.tieneRol("ALUMNO")) { %>
 
 		<div class="col-md-12">
-   		 <div class="card dashboard-card p-4 text-center">
-
+   		<div class="card dashboard-card p-4 text-center">
         <div class="icon">🎓</div>
-
         <h4>Mi Resumen Académico</h4>
-
         <p>
             Consulta tus cursos matriculados y tus notas.
         </p>
-
         <a href="${pageContext.request.contextPath}/notas"
            class="btn btn-primary mt-3">
            Ver Mis Notas
         </a>
 
-    </div>
 </div>
-
+</div>
 <% } %>
-
-    </div>
-
 </div>
-
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="${pageContext.request.contextPath}/resource/js/Dashboard.js"></script>
 </body>
 </html>

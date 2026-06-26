@@ -6,5 +6,5 @@ import com.institucion.edu.entity.Rol;
 
 @Repository
 public interface RolRepository extends JpaRepository<Rol, Integer> {
-    // Al heredar de JpaRepository ya tienes: save(), findAll(), findById(), delete(), etc.
+   
 }

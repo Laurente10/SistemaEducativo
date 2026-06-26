@@ -1,5 +1,4 @@
 package com.institucion.edu.entity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +24,6 @@ public class Curso {
     @Column(name = "creditos", nullable = false)
     private int creditos;
 
-    // --- CONSTRUCTORES ---
     public Curso() {
     }
 
@@ -36,7 +34,6 @@ public class Curso {
         this.creditos = creditos;
     }
 
-    // --- GETTERS Y SETTERS ---
     public int getIdCurso() { return idCurso; }
     public void setIdCurso(int idCurso) { this.idCurso = idCurso; }
 

@@ -1,0 +1,64 @@
+body{
+    background:#f4f7fc;
+}
+
+.card-stat{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    min-height:180px;
+    transition:.3s;
+}
+.card-alumnos{
+    border-left: 6px solid #0d6efd;
+}
+
+.card-docentes{
+    border-left: 6px solid #198754;
+}
+
+.card-cursos{
+    border-left: 6px solid #fd7e14;
+}
+
+.card-matriculas{
+    border-left: 6px solid #dc3545;
+}
+
+.card-usuarios{
+    border-left: 6px solid #6f42c1;
+}
+
+.card-stat:hover{
+    transform:translateY(-5px);
+}
+.icon-circle{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 15px auto;
+    font-size:40px;
+}
+
+.icon-alumnos{
+    background:#e7f1ff;
+}
+
+.icon-docentes{
+    background:#e8f8ef;
+}
+
+.icon-cursos{
+    background:#fff0e6;
+}
+
+.icon-matriculas{
+    background:#fdecec;
+}
+
+.icon-usuarios{
+    background:#f2ebff;
+}
